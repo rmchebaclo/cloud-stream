@@ -51,7 +51,7 @@ app.post('/process-video', async (req, res) => {
     deleteRawVideo(inputFileName),
     deleteProcessedVideo(outputFileName)
   ]);
-  return.res.status(200).send('Processing finished succesfully.')
+  return res.status(200).send('Processing finished succesfully.')
 });
 
 const port = process.env.PORT || 3000;
