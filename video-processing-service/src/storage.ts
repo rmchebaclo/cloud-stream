@@ -15,6 +15,8 @@ const localRawVideoPath = "./raw-videos"
 const localProcessedVideoPath = "./processed-videos"
 
 // Creates local directories for raw and processed videos
+// Ensures these folders exist by the time a containter is started up
+// Important because files with always be saved to these folders
 export function setupDirectories(){
     ensureDirectoryExistence(localRawVideoPath);
     ensureDirectoryExistence(localProcessedVideoPath);
@@ -80,6 +82,7 @@ export async function uploadProcesssedVideo(fileName: string){
 function deleteFile(filePath: string): Promise<void> {
     return new Promise((resolve, reject) => {
         if (fs.existsSync(filePath)) {
+            // quickest way to delete file without updating disk space
             fs.unlink(filePath, (err) => {
                 if (err) {
                     console.log(`Failed to delete file at ${filePath}`, err);

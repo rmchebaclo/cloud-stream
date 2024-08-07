@@ -9,6 +9,9 @@ setupDirectories();
 const app = express();
 app.use(express.json())
 
+// Not invoked by any user or us manually
+// Invoked by a Cloud Pub/Sub message when a video is uploaded to the raw bucket
+// Documentation for this in Google Cloud
 app.post('/process-video', async (req, res) => {
   // Get the bucket and filename from the Cloud Pub/Sub message
   let data;
@@ -33,13 +36,12 @@ app.post('/process-video', async (req, res) => {
   try {
     await convertVideo(inputFileName, outputFileName)
   } catch (err) {
+    // Delete both files to clean up after failed processing
+    // Await both deletions in parallel is faster
     await Promise.all([
       deleteRawVideo(inputFileName),
       deleteProcessedVideo(outputFileName)
     ]);
-
-    await deleteRawVideo(inputFileName)
-    await deleteProcessedVideo(outputFileName)
     console.error(err);
     return res.status(500).send('Internal Server Error: video processing failed.')
   }
