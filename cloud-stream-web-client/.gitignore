@@ -23,4 +23,15 @@ Thumbs.db
 firebase-debug.log
 firestore_debug.log
 
+# Firebase service account key
+serviceAccountKey.json
+
+# Firebase environment files
+.env
+
+# Firebase Emulator
+firebase-debug.log
+firestore_debug.log
+
+
 
