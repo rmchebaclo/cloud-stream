@@ -4,5 +4,4 @@ Full-stack web app for video uploading and streaming that supports 4 core functi
 2. Video Upload
 3. Video Transcoding
 4. Video Streaming
-5. 
 Inspiration: neetcode.io
